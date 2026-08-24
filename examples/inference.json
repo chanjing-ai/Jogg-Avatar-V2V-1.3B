@@ -1,0 +1,9 @@
+[
+  {
+    "prompt": "A person is talking.",
+    "cond_video": "data/source_video.mp4",
+    "cond_audio": {
+      "person1": "data/driving_audio.wav"
+    }
+  }
+]

@@ -1,0 +1,39 @@
+.venv/
+*.egg-info/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.idea/
+.vscode/
+.DS_Store
+
+# Models, checkpoints, generated tensors, and outputs.
+/models/
+/pretrain_models/
+/checkpoints/
+/results/
+/outputs/
+/lightning_logs/
+*.ckpt
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.onnx
+*.npy
+
+# Local media and datasets may contain personal or licensed material.
+/data
+/datasets/
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wav
+*.mp3
+
+# Secrets and machine-local files.
+.env
+.env.*
+!.env.example
+*.log

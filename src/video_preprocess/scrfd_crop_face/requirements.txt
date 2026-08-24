@@ -1,0 +1,5 @@
+onnxruntime-gpu==1.18.1
+opencv-contrib-python==4.9.0.80
+opencv-python==4.8.1.78
+cv2box==0.5.9
+more-itertools==10.3.0
