@@ -11,6 +11,10 @@ background, and camera motion while regenerating a speech-synchronized face.
 This release contains the InfiniteTalk inference, preprocessing, and training
 paths.
 
+
+https://github.com/user-attachments/assets/ef8ac635-782b-476a-be3a-5522c98dc457
+
+
 ## Requirements
 
 - Linux with an NVIDIA GPU and a CUDA 12.8-compatible driver
