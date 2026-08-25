@@ -7,8 +7,7 @@ Jogg-Avatar V2V 1.3B 是一个音频驱动的数字人视频生成模型，基�
 [InfiniteTalk](https://github.com/MeiGen-AI/InfiniteTalk) 技术路线。模型输入源视频和
 驱动音频，保留原视频中的身体、背景与镜头运动，同时重新生成与语音同步的人脸区域。
 
-首个开源版本只包含 InfiniteTalk 的推理、预处理和训练链路。FlashHead 是另一套模型版本，
-本次暂不发布。
+本开源版本包含 InfiniteTalk 的推理、预处理和训练链路。
 
 ## 环境要求
 

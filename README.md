@@ -8,8 +8,8 @@ on [Wan2.1-T2V-1.3B](https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B) and the
 source video and a driving audio track, it preserves the source body,
 background, and camera motion while regenerating a speech-synchronized face.
 
-This first release contains the InfiniteTalk inference, preprocessing, and
-training paths. FlashHead is a separate model variant and is not included yet.
+This release contains the InfiniteTalk inference, preprocessing, and training
+paths.
 
 ## Requirements
 

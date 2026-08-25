@@ -99,13 +99,5 @@ class ReleaseTest(unittest.TestCase):
                 for value in forbidden:
                     self.assertNotIn(value, text, str(path))
 
-    def test_flashhead_package_is_not_part_of_this_release(self):
-        self.assertFalse((ROOT / "src" / "flash_head").exists())
-        multitalk = (ROOT / "src" / "wan" / "multitalk.py").read_text(
-            encoding="utf-8"
-        )
-        self.assertNotIn("from flash_head", multitalk)
-
-
 if __name__ == "__main__":
     unittest.main()
