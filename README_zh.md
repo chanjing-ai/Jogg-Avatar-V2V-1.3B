@@ -9,6 +9,10 @@ Jogg-Avatar V2V 1.3B 是一个音频驱动的数字人视频生成模型，基�
 
 本开源版本包含 InfiniteTalk 的推理、预处理和训练链路。
 
+
+https://github.com/user-attachments/assets/ef8ac635-782b-476a-be3a-5522c98dc457
+
+
 ## 环境要求
 
 - Linux、NVIDIA GPU，以及兼容 CUDA 12.8 的驱动
