@@ -54,7 +54,7 @@ def validate_inference_inputs(args: Any) -> list[dict[str, Any]]:
     if not model_paths:
         errors.append("infinitetalk_dir must contain at least one safetensors path")
     for model_path in model_paths:
-        _require_path(model_path, "Jogg-Avatar checkpoint", errors)
+        _require_path(model_path, "Chanjing-Avatar checkpoint", errors)
 
     _require_path(Path(args.wav2vec_dir), "audio encoder", errors)
     jobs = _load_jobs(args.input_json, errors)

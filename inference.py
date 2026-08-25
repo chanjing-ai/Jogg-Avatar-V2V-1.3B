@@ -12,7 +12,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
-MODEL_ROOT = os.environ.get("JOGG_AVATAR_MODEL_DIR", "models")
+MODEL_ROOT = os.environ.get("CHANJING_AVATAR_MODEL_DIR", "models")
 
 import random
 
@@ -110,8 +110,8 @@ def _parse_args():
         "--infinitetalk_dir",
         type=str,
         default=",".join([
-            os.path.join(MODEL_ROOT, "Jogg-Avatar-V2V-1.3B", "model-00001-of-00002.safetensors"),
-            os.path.join(MODEL_ROOT, "Jogg-Avatar-V2V-1.3B", "model-00002-of-00002.safetensors"),
+            os.path.join(MODEL_ROOT, "Chanjing-Avatar-V2V-1.3B", "model-00001-of-00002.safetensors"),
+            os.path.join(MODEL_ROOT, "Chanjing-Avatar-V2V-1.3B", "model-00002-of-00002.safetensors"),
         ]),
         help="Comma-separated InfiniteTalk safetensors paths.")
     parser.add_argument(

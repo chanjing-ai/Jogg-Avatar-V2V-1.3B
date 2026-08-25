@@ -12,7 +12,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 
-MODEL_ROOT = Path(os.environ.get("JOGG_AVATAR_MODEL_DIR", "models"))
+MODEL_ROOT = Path(os.environ.get("CHANJING_AVATAR_MODEL_DIR", "models"))
 
 
 def create_landmark_runner(device_id=0):

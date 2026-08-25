@@ -565,7 +565,7 @@ def parse_args():
     parser.add_argument('--data_dir', required=True, type=str)
     parser.add_argument('--share_dir', default='./data/share', type=str)
     parser.add_argument('--wan_dit_path', default='./models/Wan2.1-T2V-1.3B/diffusion_pytorch_model.safetensors', type=str)
-    parser.add_argument('--infinitetalk_pred_model_path', default='./models/Jogg-Avatar-V2V-1.3B/training_init/audio_proj.safetensors', type=str)
+    parser.add_argument('--infinitetalk_pred_model_path', default='./models/Chanjing-Avatar-V2V-1.3B/training_init/audio_proj.safetensors', type=str)
     parser.add_argument('--resume_ckpt', type=str, default=None, help='Optional safetensors shards separated by commas')
     parser.add_argument('--learning_rate', default=1e-5, type=float)
     parser.add_argument('--num_workers', default=8, type=int)

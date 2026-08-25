@@ -1,8 +1,8 @@
-# Jogg-Avatar V2V 1.3B
+# Chanjing-Avatar V2V 1.3B
 
 [English](README.md) | [简体中文](README_zh.md)
 
-Jogg-Avatar V2V 1.3B is an audio-driven avatar video generation model based
+Chanjing-Avatar V2V 1.3B is an audio-driven avatar video generation model based
 on [Wan2.1-T2V-1.3B](https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B) and the
 [InfiniteTalk](https://github.com/MeiGen-AI/InfiniteTalk) approach. Given a
 source video and a driving audio track, it preserves the source body,
@@ -23,8 +23,8 @@ https://github.com/user-attachments/assets/ef8ac635-782b-476a-be3a-5522c98dc457
 - Python 3.13, PyTorch 2.8.0, and CUDA 12.8 wheels pinned by this project
 
 ```bash
-git clone https://github.com/chanjing-ai/Jogg-Avatar-V2V-1.3B.git
-cd Jogg-Avatar-V2V-1.3B
+git clone https://github.com/chanjing-ai/Chanjing-Avatar-V2V-1.3B.git
+cd Chanjing-Avatar-V2V-1.3B
 
 # Inference
 uv sync
@@ -61,11 +61,11 @@ uv run hf download google/umt5-xxl \
   --local-dir models/Wan2.1-T2V-1.3B/google/umt5-xxl
 ```
 
-Download the Jogg-Avatar InfiniteTalk checkpoint from Hugging Face:
+Download the Chanjing-Avatar V2V 1.3B checkpoint from Hugging Face:
 
 ```bash
-uv run hf download cicada-ai/Jogg-Avatar-V2V-Infinite \
-  --local-dir models/Jogg-Avatar-V2V-1.3B
+uv run hf download cicada-ai/Chanjing-Avatar-V2V-1.3B \
+  --local-dir models/Chanjing-Avatar-V2V-1.3B
 ```
 
 The face preprocessing models `landmark.onnx` and `scrfd_500m_bnkps.onnx`
@@ -84,7 +84,7 @@ models/
 |   |-- google/umt5-xxl/
 |   `-- xlm-roberta-large/
 |-- chinese-wav2vec2-base/
-|-- Jogg-Avatar-V2V-1.3B/
+|-- Chanjing-Avatar-V2V-1.3B/
 |   |-- model-00001-of-00002.safetensors
 |   |-- model-00002-of-00002.safetensors
 |   `-- training_init/audio_proj.safetensors
@@ -92,7 +92,7 @@ models/
 `-- scrfd_500m_bnkps.onnx
 ```
 
-Set `JOGG_AVATAR_MODEL_DIR` before running preprocessing or inference to use a
+Set `CHANJING_AVATAR_MODEL_DIR` before running preprocessing or inference to use a
 different model root. Model files, training data, and generated media are
 intentionally excluded from Git.
 
@@ -164,7 +164,7 @@ uv run python training/create_context.py \
 ```
 
 Start training. The initialization audio projection is distributed with the
-Jogg model release; a released Jogg checkpoint can also be supplied through
+Chanjing-Avatar model release; a released checkpoint can also be supplied through
 `--resume_ckpt` as a comma-separated shard list.
 
 Validate one processed sample and checkpoint tensor shapes without allocating
@@ -175,7 +175,7 @@ uv run python training/train.py \
   --data_dir /path/to/processed_data \
   --share_dir data/share \
   --resume_ckpt \
-    models/Jogg-Avatar-V2V-1.3B/model-00001-of-00002.safetensors,models/Jogg-Avatar-V2V-1.3B/model-00002-of-00002.safetensors \
+    models/Chanjing-Avatar-V2V-1.3B/model-00001-of-00002.safetensors,models/Chanjing-Avatar-V2V-1.3B/model-00002-of-00002.safetensors \
   --validate_only
 ```
 
@@ -184,7 +184,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 uv run python training/train.py \
   --data_dir /path/to/processed_data \
   --share_dir data/share \
   --infinitetalk_pred_model_path \
-    models/Jogg-Avatar-V2V-1.3B/training_init/audio_proj.safetensors \
+    models/Chanjing-Avatar-V2V-1.3B/training_init/audio_proj.safetensors \
   --output_path outputs/train \
   --training_strategy auto
 ```
@@ -220,8 +220,7 @@ for impersonation, fraud, harassment, or deceptive content.
 ## Acknowledgments
 
 This project builds on [Wan2.1](https://github.com/Wan-Video/Wan2.1) and
-[InfiniteTalk](https://github.com/MeiGen-AI/InfiniteTalk). The release layout
-and tooling follow the Jogg-Avatar and Jogg-Avatar-V2V projects.
+[InfiniteTalk](https://github.com/MeiGen-AI/InfiniteTalk).
 
 ## License
 

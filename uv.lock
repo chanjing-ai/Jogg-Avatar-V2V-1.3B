@@ -693,7 +693,7 @@ wheels = [
 ]
 
 [[package]]
-name = "jogg-avatar-v2v-1-3b"
+name = "chanjing-avatar-v2v-1-3b"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

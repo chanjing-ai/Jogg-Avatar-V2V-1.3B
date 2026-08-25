@@ -17,6 +17,7 @@ class ReleaseTest(unittest.TestCase):
     def test_pyproject_is_valid_and_pins_cuda_torch(self):
         project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
         dependencies = project["project"]["dependencies"]
+        self.assertEqual(project["project"]["name"], "chanjing-avatar-v2v-1-3b")
         self.assertIn("torch==2.8.0", dependencies)
         self.assertEqual(
             project["tool"]["uv"]["sources"]["torch"]["index"],
@@ -98,6 +99,21 @@ class ReleaseTest(unittest.TestCase):
                 text = path.read_text(encoding="utf-8")
                 for value in forbidden:
                     self.assertNotIn(value, text, str(path))
+
+    def test_release_contains_no_legacy_brand(self):
+        legacy_brand = "".join(("jo", "gg"))
+        for path in ROOT.rglob("*"):
+            if path == Path(__file__).resolve():
+                continue
+            relative_parts = path.relative_to(ROOT).parts
+            if any(part in {".git", ".venv", "data", "models"} for part in relative_parts):
+                continue
+            if path.is_file() and (
+                path.suffix in {".py", ".md", ".json", ".toml", ".lock"}
+                or path.name == "NOTICE"
+            ):
+                text = path.read_text(encoding="utf-8").lower()
+                self.assertNotIn(legacy_brand, text, str(path))
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,11 +1,11 @@
 [project]
-name = "jogg-avatar-v2v-1-3b"
+name = "chanjing-avatar-v2v-1-3b"
 version = "0.1.0"
 description = "InfiniteTalk audio-driven video-to-video avatar generation based on Wan2.1-T2V-1.3B"
 readme = "README.md"
 requires-python = "==3.13.*"
 license = { file = "LICENSE" }
-authors = [{ name = "Jogg-Avatar contributors" }]
+authors = [{ name = "Chanjing AI contributors" }]
 dependencies = [
     "accelerate>=1.1,<2",
     "decord>=0.6,<0.7",

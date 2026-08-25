@@ -11,21 +11,21 @@ tags:
   - infinitetalk
 ---
 
-# Jogg-Avatar V2V 1.3B (InfiniteTalk)
+# Chanjing-Avatar V2V 1.3B (InfiniteTalk)
 
-Jogg-Avatar V2V 1.3B is an audio-driven video-to-video avatar model based on
+Chanjing-Avatar V2V 1.3B is an audio-driven video-to-video avatar model based on
 Wan2.1-T2V-1.3B and the InfiniteTalk approach. It preserves source body,
 background, and camera motion while regenerating a face synchronized to a
 driving audio track.
 
 This model card is prepared for the InfiniteTalk checkpoint release. Training,
 preprocessing, and inference code is available at
-[chanjing-ai/Jogg-Avatar-V2V-1.3B](https://github.com/chanjing-ai/Jogg-Avatar-V2V-1.3B).
+[chanjing-ai/Chanjing-Avatar-V2V-1.3B](https://github.com/chanjing-ai/Chanjing-Avatar-V2V-1.3B).
 
 The checkpoint directory is expected to contain:
 
 ```text
-Jogg-Avatar-V2V-1.3B/
+Chanjing-Avatar-V2V-1.3B/
 |-- model-00001-of-00002.safetensors
 |-- model-00002-of-00002.safetensors
 |-- model.safetensors.index.json

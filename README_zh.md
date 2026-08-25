@@ -1,8 +1,8 @@
-# Jogg-Avatar V2V 1.3B
+# 蝉镜数字人 V2V 1.3B
 
 [English](README.md) | [简体中文](README_zh.md)
 
-Jogg-Avatar V2V 1.3B 是一个音频驱动的数字人视频生成模型，基于
+蝉镜数字人 V2V 1.3B（Chanjing-Avatar V2V 1.3B）是一个音频驱动的数字人视频生成模型，基于
 [Wan2.1-T2V-1.3B](https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B)，并参考
 [InfiniteTalk](https://github.com/MeiGen-AI/InfiniteTalk) 技术路线。模型输入源视频和
 驱动音频，保留原视频中的身体、背景与镜头运动，同时重新生成与语音同步的人脸区域。
@@ -21,8 +21,8 @@ https://github.com/user-attachments/assets/ef8ac635-782b-476a-be3a-5522c98dc457
 - 项目锁定 Python 3.13、PyTorch 2.8.0 和 CUDA 12.8 wheel
 
 ```bash
-git clone https://github.com/chanjing-ai/Jogg-Avatar-V2V-1.3B.git
-cd Jogg-Avatar-V2V-1.3B
+git clone https://github.com/chanjing-ai/Chanjing-Avatar-V2V-1.3B.git
+cd Chanjing-Avatar-V2V-1.3B
 
 uv sync
 uv sync --extra preprocess
@@ -52,11 +52,11 @@ uv run hf download google/umt5-xxl \
   --local-dir models/Wan2.1-T2V-1.3B/google/umt5-xxl
 ```
 
-从 Hugging Face 下载 Jogg-Avatar InfiniteTalk 权重：
+从 Hugging Face 下载 Chanjing-Avatar V2V 1.3B 权重：
 
 ```bash
-uv run hf download cicada-ai/Jogg-Avatar-V2V-Infinite \
-  --local-dir models/Jogg-Avatar-V2V-1.3B
+uv run hf download cicada-ai/Chanjing-Avatar-V2V-1.3B \
+  --local-dir models/Chanjing-Avatar-V2V-1.3B
 ```
 
 人脸预处理还需要另外准备 `landmark.onnx` 和 `scrfd_500m_bnkps.onnx`。
@@ -74,7 +74,7 @@ models/
 |   |-- google/umt5-xxl/
 |   `-- xlm-roberta-large/
 |-- chinese-wav2vec2-base/
-|-- Jogg-Avatar-V2V-1.3B/
+|-- Chanjing-Avatar-V2V-1.3B/
 |   |-- model-00001-of-00002.safetensors
 |   |-- model-00002-of-00002.safetensors
 |   `-- training_init/audio_proj.safetensors
@@ -82,7 +82,7 @@ models/
 `-- scrfd_500m_bnkps.onnx
 ```
 
-通过 `JOGG_AVATAR_MODEL_DIR` 可以修改预处理和推理使用的模型根目录。模型、训练数据、
+通过 `CHANJING_AVATAR_MODEL_DIR` 可以修改预处理和推理使用的模型根目录。模型、训练数据、
 checkpoint 和生成结果均不会提交到 Git。
 
 ## 推理
@@ -150,8 +150,8 @@ uv run python training/create_context.py \
   --output data/share/context.pt
 ```
 
-启动训练。音频投影初始化权重随 Jogg 模型权重发布；也可以通过 `--resume_ckpt` 传入以
-英文逗号分隔的已发布 Jogg 权重分片。
+启动训练。音频投影初始化权重随 Chanjing-Avatar 模型权重发布；也可以通过
+`--resume_ckpt` 传入以英文逗号分隔的已发布权重分片。
 
 正式训练前可先检查一个预处理样本和全部 checkpoint 张量形状。该命令不会分配 1.3B
 模型参数，也不会启动训练：
@@ -161,7 +161,7 @@ uv run python training/train.py \
   --data_dir /path/to/processed_data \
   --share_dir data/share \
   --resume_ckpt \
-    models/Jogg-Avatar-V2V-1.3B/model-00001-of-00002.safetensors,models/Jogg-Avatar-V2V-1.3B/model-00002-of-00002.safetensors \
+    models/Chanjing-Avatar-V2V-1.3B/model-00001-of-00002.safetensors,models/Chanjing-Avatar-V2V-1.3B/model-00002-of-00002.safetensors \
   --validate_only
 ```
 
@@ -170,7 +170,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 uv run python training/train.py \
   --data_dir /path/to/processed_data \
   --share_dir data/share \
   --infinitetalk_pred_model_path \
-    models/Jogg-Avatar-V2V-1.3B/training_init/audio_proj.safetensors \
+    models/Chanjing-Avatar-V2V-1.3B/training_init/audio_proj.safetensors \
   --output_path outputs/train \
   --training_strategy auto
 ```
@@ -204,8 +204,7 @@ uv run python /path/to/checkpoint/zero_to_fp32.py \
 ## 致谢
 
 本项目基于 [Wan2.1](https://github.com/Wan-Video/Wan2.1) 与
-[InfiniteTalk](https://github.com/MeiGen-AI/InfiniteTalk)，发布结构和工程工具参考了
-Jogg-Avatar 与 Jogg-Avatar-V2V。
+[InfiniteTalk](https://github.com/MeiGen-AI/InfiniteTalk)。
 
 ## 许可证
 
