@@ -1,6 +1,7 @@
 import os
 import sys
 import cv2
+import math
 import torch
 import random
 import argparse
@@ -356,13 +357,13 @@ class VideoAudioDataset(torch.utils.data.Dataset):
 
             seg_audio = audio[start_sample:end_sample]
             if seg_audio.size == 0:
-                return None
+                return 0
 
             seg_audio = self.loudness_norm(seg_audio, sr=sample_rate)
 
             audio_emb = self.get_audio_embedding(seg_audio, fps=fps, sr=sample_rate)
             if audio_emb is None:
-                return None
+                return 0
 
             ext_frames_eff = int(len(seg_audio) / samples_per_frame)
             ext_e_eff = ext_s + ext_frames_eff - 1
@@ -374,7 +375,7 @@ class VideoAudioDataset(torch.utils.data.Dataset):
             trim_right = min(right_pad_eff, max(0, T - trim_left))
             trim_right = T - trim_right
             if trim_right - trim_left <= self.num_frames - 3:
-                return None
+                return 0
             trim_right = trim_left + self.num_frames
             center_indices = torch.arange(
                 trim_left,
@@ -388,13 +389,16 @@ class VideoAudioDataset(torch.utils.data.Dataset):
             tensor_path = os.path.join(output_dir, tensor_filename)
             torch.save(audio_clip.cpu(), tensor_path)
             save_index += 1
+        return save_index
 
     def run_getitem(self, video_path, audio_path, lmk_path, output_dir):
         cap = cv2.VideoCapture(video_path)
         if not cap.isOpened():
             raise RuntimeError(f"Failed to open video: {video_path}")
         fps = cap.get(cv2.CAP_PROP_FPS)
-        assert fps == 25, "fps must be 25"
+        if not math.isclose(fps, 25.0, rel_tol=0.0, abs_tol=0.01):
+            cap.release()
+            raise ValueError(f"video FPS must be 25, got {fps:.6f}: {video_path}")
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
@@ -499,6 +503,7 @@ class VideoAudioDataset(torch.utils.data.Dataset):
             frame_idx += 1
         cap.release()
 
+        latent_count = save_index
         save_index = 0
         for frame_idx in ref_clip_idxs:
             if ref_frmaes[frame_idx] is None:
@@ -520,9 +525,47 @@ class VideoAudioDataset(torch.utils.data.Dataset):
 
             save_index += 1
 
-        self.process_audio(audio_path, clips, len(landmarks), fps, output_dir)
+        reference_count = save_index
+        audio_count = self.process_audio(
+            audio_path,
+            clips,
+            len(landmarks),
+            fps,
+            output_dir,
+        )
+        if not latent_count or not (
+            latent_count == reference_count == audio_count
+        ):
+            print(
+                "Incomplete preprocessed sample: "
+                f"latents={latent_count}, references={reference_count}, audio={audio_count}"
+            )
+            return False
 
         return True
+
+
+def _complete_sample_indices(output_dir):
+    output = Path(output_dir)
+    groups = []
+    for prefix, suffix in (
+        ("latents_", ".pth"),
+        ("latent_y_", ".pth"),
+        ("ref_context_", ".pth"),
+        ("audio_", ".pth"),
+        ("lmk203_", ".npy"),
+    ):
+        indices = {
+            path.name[len(prefix):-len(suffix)]
+            for path in output.glob(f"{prefix}*{suffix}")
+        }
+        groups.append(indices)
+    return groups[0] if groups[0] and all(group == groups[0] for group in groups[1:]) else set()
+
+
+def _has_complete_samples(output_dir):
+    output = Path(output_dir)
+    return (output / ".complete").is_file() or bool(_complete_sample_indices(output))
 
 
 def process_videos_on_gpu(gpu_id, video_paths, process_idx, args):
@@ -560,13 +603,16 @@ def process_videos_on_gpu(gpu_id, video_paths, process_idx, args):
 
             output_dir = str(save_root / rel.with_suffix(""))
 
-            if os.path.exists(output_dir):
+            if _has_complete_samples(output_dir):
                 print(f"[GPU {gpu_id}][进程{process_idx}] 输出目录已存在，跳过: {output_dir}")
                 continue
+            if os.path.exists(output_dir):
+                print(f"[GPU {gpu_id}][进程{process_idx}] 检测到不完整输出，重新处理: {output_dir}")
 
             os.makedirs(output_dir, exist_ok=True)
             success = dataset.run_getitem(str(video_path), str(audio_path), str(lmk_path), output_dir)
             if success:
+                (Path(output_dir) / ".complete").write_text("ok\n", encoding="ascii")
                 print(f"[GPU {gpu_id}][进程{process_idx}] 处理完成: {video_path}")
             else:
                 print(f"[GPU {gpu_id}][进程{process_idx}] 处理失败: {video_path}")
@@ -628,7 +674,7 @@ def main():
         output_dir = save_root / rel.with_suffix("")
         if args.exclude_substr and args.exclude_substr in str(video_file):
             continue
-        if not output_dir.exists():
+        if not _has_complete_samples(output_dir):
             new_video_files.append(video_file)
 
     total_procs = args.num_gpus * args.procs_per_gpu

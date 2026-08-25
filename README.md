@@ -163,6 +163,18 @@ Start training. The initialization audio projection is distributed with the
 Jogg model release; a released Jogg checkpoint can also be supplied through
 `--resume_ckpt` as a comma-separated shard list.
 
+Validate one processed sample and checkpoint tensor shapes without allocating
+the 1.3B model or starting training:
+
+```bash
+uv run python training/train.py \
+  --data_dir /path/to/processed_data \
+  --share_dir data/share \
+  --resume_ckpt \
+    models/Jogg-Avatar-V2V-1.3B/model-00001-of-00002.safetensors,models/Jogg-Avatar-V2V-1.3B/model-00002-of-00002.safetensors \
+  --validate_only
+```
+
 ```bash
 CUDA_VISIBLE_DEVICES=0,1,2,3 uv run python training/train.py \
   --data_dir /path/to/processed_data \
@@ -172,6 +184,10 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 uv run python training/train.py \
   --output_path outputs/train \
   --training_strategy auto
 ```
+
+Gradient checkpointing is enabled by default. Use
+`--use_gradient_checkpointing_offload` when CPU activation offload is needed,
+or `--disable_gradient_checkpointing` only when GPU memory is sufficient.
 
 Install the `deepspeed` extra and select a DeepSpeed strategy only when that
 runtime is required:

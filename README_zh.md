@@ -150,6 +150,18 @@ uv run python training/create_context.py \
 启动训练。音频投影初始化权重随 Jogg 模型权重发布；也可以通过 `--resume_ckpt` 传入以
 英文逗号分隔的已发布 Jogg 权重分片。
 
+正式训练前可先检查一个预处理样本和全部 checkpoint 张量形状。该命令不会分配 1.3B
+模型参数，也不会启动训练：
+
+```bash
+uv run python training/train.py \
+  --data_dir /path/to/processed_data \
+  --share_dir data/share \
+  --resume_ckpt \
+    models/Jogg-Avatar-V2V-1.3B/model-00001-of-00002.safetensors,models/Jogg-Avatar-V2V-1.3B/model-00002-of-00002.safetensors \
+  --validate_only
+```
+
 ```bash
 CUDA_VISIBLE_DEVICES=0,1,2,3 uv run python training/train.py \
   --data_dir /path/to/processed_data \
@@ -159,6 +171,10 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 uv run python training/train.py \
   --output_path outputs/train \
   --training_strategy auto
 ```
+
+默认启用 gradient checkpointing。需要把激活卸载到 CPU 时添加
+`--use_gradient_checkpointing_offload`；只有显存充足时才使用
+`--disable_gradient_checkpointing`。
 
 确实需要 DeepSpeed 时再安装对应 extra：
 

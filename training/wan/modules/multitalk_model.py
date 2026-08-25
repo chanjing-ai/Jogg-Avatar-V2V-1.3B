@@ -604,6 +604,8 @@ class WanModel(ModelMixin, ConfigMixin):
             y=None,
             audio=None,
             ref_target_masks=None,
+            use_gradient_checkpointing=False,
+            use_gradient_checkpointing_offload=False,
         ):
         assert clip_fea is not None and y is not None
 
@@ -786,15 +788,24 @@ class WanModel(ModelMixin, ConfigMixin):
             return custom_forward
 
         for block in self.blocks:
-            # if self.training and use_gradient_checkpointing:
-            x = torch.utils.checkpoint.checkpoint(
-                create_custom_forward(block),
-                x,
-                **kwargs,
-                use_reentrant=False,
-            )
-            # else:
-            #     x = block(x, **kwargs)
+            if self.training and use_gradient_checkpointing:
+                if use_gradient_checkpointing_offload:
+                    with torch.autograd.graph.save_on_cpu():
+                        x = torch.utils.checkpoint.checkpoint(
+                            create_custom_forward(block),
+                            x,
+                            **kwargs,
+                            use_reentrant=False,
+                        )
+                else:
+                    x = torch.utils.checkpoint.checkpoint(
+                        create_custom_forward(block),
+                        x,
+                        **kwargs,
+                        use_reentrant=False,
+                    )
+            else:
+                x = block(x, **kwargs)
 
         # head
         x = self.head(x, e)
