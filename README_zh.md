@@ -12,6 +12,11 @@
 
 https://github.com/user-attachments/assets/ef8ac635-782b-476a-be3a-5522c98dc457
 
+## Chanjing-Avatar 模型家族
+
+- [Chanjing-Avatar 14B](https://github.com/chanjing-ai/Chanjing-Avatar)（[权重](https://huggingface.co/cicada-ai/Chanjing-Avatar-14B)）：输入参考图与驱动音频，生成 720p 数字人视频。
+- [Chanjing-Avatar V2V 5B](https://github.com/chanjing-ai/Chanjing-Avatar-V2V-5B)（[权重](https://huggingface.co/cicada-ai/Chanjing-Avatar-V2V-5B)）：保留源视频动作、镜头与背景，重新生成说话人脸。
+- [Chanjing-Avatar V2V 1.3B](https://github.com/chanjing-ai/Chanjing-Avatar-V2V-1.3B)（[权重](https://huggingface.co/cicada-ai/Chanjing-Avatar-V2V-1.3B)）：更轻量的音频驱动人脸视频生成模型。
 
 ## 环境要求
 

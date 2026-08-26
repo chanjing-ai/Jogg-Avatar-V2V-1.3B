@@ -22,6 +22,12 @@ This model card is prepared for the InfiniteTalk checkpoint release. Training,
 preprocessing, and inference code is available at
 [chanjing-ai/Chanjing-Avatar-V2V-1.3B](https://github.com/chanjing-ai/Chanjing-Avatar-V2V-1.3B).
 
+## Chanjing-Avatar Model Family
+
+- [Chanjing-Avatar 14B](https://huggingface.co/cicada-ai/Chanjing-Avatar-14B): 720p image-to-video generation from a reference image and driving audio.
+- [Chanjing-Avatar V2V 5B](https://huggingface.co/cicada-ai/Chanjing-Avatar-V2V-5B): video-to-video generation that preserves source motion and regenerates the speaking face.
+- [Chanjing-Avatar V2V 1.3B](https://huggingface.co/cicada-ai/Chanjing-Avatar-V2V-1.3B): a lighter video-to-video model for audio-driven face animation.
+
 The checkpoint directory is expected to contain:
 
 ```text

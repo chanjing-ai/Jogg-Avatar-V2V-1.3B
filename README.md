@@ -14,6 +14,11 @@ paths.
 
 https://github.com/user-attachments/assets/ef8ac635-782b-476a-be3a-5522c98dc457
 
+## Chanjing-Avatar Model Family
+
+- [Chanjing-Avatar 14B](https://github.com/chanjing-ai/Chanjing-Avatar) ([weights](https://huggingface.co/cicada-ai/Chanjing-Avatar-14B)): 720p image-to-video generation from a reference image and driving audio.
+- [Chanjing-Avatar V2V 5B](https://github.com/chanjing-ai/Chanjing-Avatar-V2V-5B) ([weights](https://huggingface.co/cicada-ai/Chanjing-Avatar-V2V-5B)): video-to-video generation that preserves source motion and regenerates the speaking face.
+- [Chanjing-Avatar V2V 1.3B](https://github.com/chanjing-ai/Chanjing-Avatar-V2V-1.3B) ([weights](https://huggingface.co/cicada-ai/Chanjing-Avatar-V2V-1.3B)): a lighter video-to-video model for audio-driven face animation.
 
 ## Requirements
 
