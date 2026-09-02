@@ -10,7 +10,7 @@
 本开源版本包含 InfiniteTalk 的推理、预处理和训练链路。
 
 
-https://github.com/user-attachments/assets/ef8ac635-782b-476a-be3a-5522c98dc457
+https://github.com/user-attachments/assets/696e4482-6343-4e78-abcb-b797f66340fd
 
 ## Chanjing-Avatar 模型家族
 
