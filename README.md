@@ -12,7 +12,10 @@ This release contains the InfiniteTalk inference, preprocessing, and training
 paths.
 
 
-https://github.com/user-attachments/assets/ef8ac635-782b-476a-be3a-5522c98dc457
+
+https://github.com/user-attachments/assets/696e4482-6343-4e78-abcb-b797f66340fd
+
+
 
 ## Chanjing-Avatar Model Family
 
